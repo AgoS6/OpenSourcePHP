@@ -70,22 +70,28 @@ class Discussions {
             return redirect($redirect_path);
         }
 
-        // Check that the session has the minimums...
-        if ( U::get($_SESSION,'secret') && U::get($_SESSION,'context_key')
-                && U::get($_SESSION,'user_key') && U::get($_SESSION,'displayname') && U::get($_SESSION,'email') )
-        {
+        	// Check that the session has the minimums...
+        $secret = filter_input(INPUT_SESSION, 'secret', FILTER_SANITIZE_STRING);
+        $context_key = filter_input(INPUT_SESSION, 'context_key', FILTER_SANITIZE_STRING);
+        $user_key = filter_input(INPUT_SESSION, 'user_key', FILTER_SANITIZE_STRING);
+        $displayname = filter_input(INPUT_SESSION, 'displayname', FILTER_SANITIZE_STRING);
+        $email = filter_input(INPUT_SESSION, 'email', FILTER_SANITIZE_EMAIL);
+         
+        if ($secret && $context_key && $user_key && $displayname && $email) {
             // All good
         } else {
             $app->tsugiFlashError(__('Missing session data required for launch'));
             return redirect($redirect_path);
         }
-
-        $key = isset($_SESSION['oauth_consumer_key']) ? $_SESSION['oauth_consumer_key'] : false;
+         
+        $oauth_consumer_key = filter_input(INPUT_SESSION, 'oauth_consumer_key', FILTER_SANITIZE_STRING);
+        $key = $oauth_consumer_key ? $oauth_consumer_key : false;
+         
         $secret = false;
-        if ( isset($_SESSION['secret']) ) {
-            $secret = LTIX::decrypt_secret($_SESSION['secret']);
+        if ($secret) {
+            $secret = LTIX::decrypt_secret($secret);
         }
-
+        
         $resource_link_id = $lti->resource_link_id;
         $parms = array(
             'lti_message_type' => 'basic-lti-launch-request',
