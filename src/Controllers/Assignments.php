@@ -1,5 +1,5 @@
 <?php
-session_start()
+
 namespace Koseu\Controllers;
 
 use Tsugi\Lumen\Application;
@@ -31,8 +31,8 @@ class Assignments {
         $allgrades = array();
         
         if (isset($_SESSION['id']) && isset($_SESSION['context_id'])) {
-            $id = (int)$_SESSION['id'];
-            $contextId = $_SESSION['context_id'];
+            $id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+            $contextId = isset($_SESSION['context_id']) ? $_SESSION['context_id'] : null;
             $rows = GradeUtil::loadGradesForCourse($id, $contextId);
             foreach ($rows as $row) {
                 $allgrades[$row['resource_link_id']] = $row['grade'];
