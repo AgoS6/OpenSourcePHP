@@ -36,7 +36,7 @@ class Courses {
         );
 
         if ( $row === false || ! isset($row['profile_id']) ) {
-            echo json_encode(array("error" => "No profile_id"));
+            print_r(json_encode(array("error" => "No profile_id")));
             return;
         }
 
