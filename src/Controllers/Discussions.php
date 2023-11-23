@@ -99,7 +99,7 @@ class Discussions {
             'resource_link_title' => $lti->title,
             'tool_consumer_info_product_family_code' => 'tsugi',
             'tool_consumer_info_version' => '1.1',
-            'context_id' => isset($_SESSION['context_key']) ? filter_input(INPUT_SESSION, 'context_key', FILTER_SANITIZE_STRING) : null,
+            'context_id' => filter_input(INPUT_SESSION, 'context_key', FILTER_SANITIZE_STRING) ? filter_input(INPUT_SESSION, 'context_key', FILTER_SANITIZE_STRING) : null,
             'context_label' => $CFG->context_title,
             'context_title' => $CFG->context_title,
             'user_id' => filter_input(INPUT_SESSION, 'user_key', FILTER_SANITIZE_STRING) ? filter_input(INPUT_SESSION, 'user_key', FILTER_SANITIZE_STRING) : null,
