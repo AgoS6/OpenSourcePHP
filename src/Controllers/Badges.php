@@ -29,12 +29,17 @@ class Badges {
 
         // Load all the Grades so far
         $allgrades = array();
-        if ( isset($_SESSION['id']) && isset($_SESSION['context_id'])) {
-            $rows = GradeUtil::loadGradesForCourse($_SESSION['id'], $_SESSION['context_id']);
-            foreach($rows as $row) {
+
+        function getSessionData($key, $default = null) {
+            return filter_input(INPUT_SESSION, $key, FILTER_SANITIZE_STRING) ?? $default;
+        }
+            $id = getSessionData('id', null);
+            $contextId = getSessionData('context_id', null);
+            
+            $rows = GradeUtil::loadGradesForCourse($id, $contextId);
+            foreach ($rows as $row) {
                 $allgrades[$row['resource_link_id']] = $row['grade'];
             }
-        }
 
         $OUTPUT->header();
         $OUTPUT->bodyStart();
