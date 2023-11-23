@@ -32,7 +32,7 @@ class Assignments {
         
        
             $id = isset($_SESSION['id']) ? (int)$_SESSION['id'] : null;
-            $contextId = isset($_SESSION['context_id']) ? $_SESSION['context_id'] : null;
+            $contextId = isset($_SESSION['context_id']) ? filter_input(INPUT_SESSION, 'context_id', FILTER_SANITIZE_STRING) : null;
             $rows = GradeUtil::loadGradesForCourse($id, $contextId);
             foreach ($rows as $row) {
                 $allgrades[$row['resource_link_id']] = $row['grade'];
