@@ -29,8 +29,13 @@ class Assignments {
 
         // Load all the Grades so far
         $allgrades = array();
-            $id = isset($_SESSION['id']) ? (int)$_SESSION['id'] : null;
-            $contextId = isset($_SESSION['context_id']) ? filter_input(INPUT_SESSION, 'context_id', FILTER_SANITIZE_STRING) : null;
+
+        function getSessionData($key, $default = null) {
+            return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
+        }
+            $id = getSessionData('id', null);
+            $contextId = getSessionData('context_id', null);
+            
             $rows = GradeUtil::loadGradesForCourse($id, $contextId);
             foreach ($rows as $row) {
                 $allgrades[$row['resource_link_id']] = $row['grade'];
