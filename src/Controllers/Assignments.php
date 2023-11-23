@@ -31,7 +31,7 @@ class Assignments {
         $allgrades = array();
 
         function getSessionData($key, $default = null) {
-            return isset($_SESSION[$key]) ? $_SESSION[$key] : $default;
+            return filter_input(INPUT_SESSION, $key, FILTER_SANITIZE_STRING) ?? $default;
         }
             $id = getSessionData('id', null);
             $contextId = getSessionData('context_id', null);
