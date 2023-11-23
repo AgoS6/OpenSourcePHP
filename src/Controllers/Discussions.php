@@ -102,7 +102,7 @@ class Discussions {
             'context_id' => isset($_SESSION['context_key']) ? filter_input(INPUT_SESSION, 'context_key', FILTER_SANITIZE_STRING) : null,
             'context_label' => $CFG->context_title,
             'context_title' => $CFG->context_title,
-            'user_id' => isset($_SESSION['user_key']) ? filter_input(INPUT_SESSION, 'user_key', FILTER_SANITIZE_STRING) : null,
+            'user_id' => filter_input(INPUT_SESSION, 'user_key', FILTER_SANITIZE_STRING) ? filter_input(INPUT_SESSION, 'user_key', FILTER_SANITIZE_STRING) : null,
             'lis_person_name_full' => filter_input(INPUT_SESSION, 'displayname', FILTER_SANITIZE_STRING);,
             'lis_person_contact_email_primary' => filter_input(INPUT_SESSION, 'email', FILTER_SANITIZE_STRING);,
             'roles' => 'Learner'
