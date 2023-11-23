@@ -31,7 +31,7 @@ class Assignments {
         $allgrades = array();
         
         if (isset($_SESSION['id']) && isset($_SESSION['context_id'])) {
-            $id = isset($_SESSION['id']) ? $_SESSION['id'] : null;
+            $id = isset((int)$_SESSION['id']) ? $_SESSION['id'] : null;
             $contextId = isset($_SESSION['context_id']) ? $_SESSION['context_id'] : null;
             $rows = GradeUtil::loadGradesForCourse($id, $contextId);
             foreach ($rows as $row) {
