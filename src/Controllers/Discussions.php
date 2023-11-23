@@ -99,12 +99,12 @@ class Discussions {
             'resource_link_title' => $lti->title,
             'tool_consumer_info_product_family_code' => 'tsugi',
             'tool_consumer_info_version' => '1.1',
-            'context_id' => isset($_SESSION['context_key']) ? sanitize($_SESSION['context_key']) : null,
+            'context_id' => isset($_SESSION['context_key']) ? filter_input(INPUT_SESSION, 'context_key', FILTER_SANITIZE_STRING) : null,
             'context_label' => $CFG->context_title,
             'context_title' => $CFG->context_title,
-            'user_id' => isset($_SESSION['user_key']) ? sanitize($_SESSION['user_key']) : null,
-            'lis_person_name_full' => $_SESSION['displayname'],
-            'lis_person_contact_email_primary' => $_SESSION['email'],
+            'user_id' => isset($_SESSION['user_key']) ? filter_input(INPUT_SESSION, 'user_key', FILTER_SANITIZE_STRING) : null,
+            'lis_person_name_full' => filter_input(INPUT_SESSION, 'displayname', FILTER_SANITIZE_STRING);,
+            'lis_person_contact_email_primary' => filter_input(INPUT_SESSION, 'email', FILTER_SANITIZE_STRING);,
             'roles' => 'Learner'
         );
         if ( isset($_SESSION['avatar']) ) $parms['user_image'] = $_SESSION['avatar'];
